@@ -176,6 +176,45 @@ public class ClientesDAO {
 
     }
 
+    //consulta nome cliente por cpf
+    public Clientes consultaPorCpf(String cpf) {
+
+        try {
+
+            String sql = "select * from tb_clientes where cpf = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, cpf);
+
+            ResultSet rs = stmt.executeQuery();
+            Clientes obj = new Clientes();
+
+            if (rs.next()) {
+
+                obj.setId(rs.getInt("id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setRg(rs.getString("rg"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setUf(rs.getString("estado"));
+            }
+
+            return obj;
+
+        } catch (Exception e) {
+
+            return null;
+        }
+
+    }
+
     //Metodo busca cliente e gera uma lista
     public List<Clientes> buscaClientesPorNome(String nome) {
         try {
@@ -234,6 +273,5 @@ public class ClientesDAO {
         }
 
     }
-
 
 }
